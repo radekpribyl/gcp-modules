@@ -18,26 +18,26 @@ resource "google_pubsub_subscription" "subscription" {
   }
 
   ack_deadline_seconds       = var.ack_deadline_seconds
-  enable_message_ordering    = var.ordered
-  message_retention_duration = "604800s"
-  retain_acked_messages      = true
+  enable_message_ordering    = var.is_ordered
+  message_retention_duration = var.message_retention_duration
+  retain_acked_messages      = var.retain_acked_messages
 
   expiration_policy {
     ttl = ""
   }
 
   retry_policy {
-    minimum_backoff = "10s"
-    maximum_backoff = "600s"
+    minimum_backoff = var.retry_minimum_backoff
+    maximum_backoff = var.retry_maximum_backoff
   }
 
-  filter = var.filtered ? var.subscription_filter : null
+  filter = var.is_filtered ? var.subscription_filter : null
 
   dynamic "dead_letter_policy" {
-    for_each = var.dead_letter_enabled ? [1] : []
+    for_each = var.is_dead_letter_enabled ? [1] : []
     content {
       dead_letter_topic     = var.dead_letter_topic_id
-      max_delivery_attempts = 20
+      max_delivery_attempts = var.max_delivery_attempts
     }
   }
 }

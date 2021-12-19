@@ -1,5 +1,5 @@
 module "omni-talent-profile-subscription-sub1" {
-  source       = "../gcp-pubsub/subscription-with-service-account"
+  source       = "./modules/gcp-pubsub/subscription-with-service-account"
   application  = var.application
   environment  = var.environment
   opco         = local.data.opco
@@ -11,7 +11,7 @@ module "omni-talent-profile-subscription-sub1" {
 }
 
 module "omni-talent-profile-subscription-sub2-dlt" {
-  source       = "../gcp-pubsub/subscription-with-service-account-and-dlt"
+  source       = "./modules/gcp-pubsub/subscription-with-service-account-and-dlt"
   application  = var.application
   environment  = var.environment
   opco         = local.data.opco

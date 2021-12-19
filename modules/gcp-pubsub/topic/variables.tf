@@ -6,7 +6,10 @@ variable "project_id" {
 variable "service_name" {
   type        = string
   description = "Name of the topic to be created"
-
+  validation {
+    condition = (!can(regex("_", var.service_name)))
+    error_message = "Variable service_name cannot contain _ character."
+  }
 }
 
 variable "environment" {
@@ -27,15 +30,23 @@ variable "application" {
 variable "opco" {
   type        = string
   description = "The randstad abbreviation for the operating company, i.e. df"
+  validation {
+    condition = (!can(regex("_", var.opco)))
+    error_message = "Variable opco cannot contain _ character."
+  }
 }
 
 variable "topic_version" {
   type        = string
   description = "The major version of messages in the topic"
   default     = "v1"
+  validation {
+    condition = (!can(regex("_", var.topic_version)))
+    error_message = "Variable topic_version cannot contain _ character."
+  }
 }
 
-variable "ordered" {
+variable "is_ordered" {
   type        = bool
   description = "If the topic is ordered then topic is GEO restricted to ensure order"
   default     = false
@@ -48,8 +59,22 @@ variable "persistence_regions" {
 
 }
 
-variable "dead_letter_topic" {
+variable "is_dead_letter_topic" {
   type        = bool
   description = "Indicates if the topic is Death Letter Topic"
   default     = false
 }
+
+variable "dlt_subscriber_name" {
+  type        = string
+  description = "Name of subscriber - needed for DLT"
+  default = ""
+}
+
+variable "dlt_message_retention" {
+  type = string
+  description = "Message retention in secs for DLT topic"
+  default = "2592000s"
+}
+
+
