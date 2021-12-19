@@ -1,5 +1,5 @@
 module "omni-talent-profile-topic" {
-  source        = "../gcp-pubsub/topic-with-service-account"
+  source        = "./modules/gcp-pubsub/topic-with-service-account"
   application   = var.application
   environment   = var.environment
   opco          = local.omni.opco
@@ -10,7 +10,7 @@ module "omni-talent-profile-topic" {
 }
 
 module "omni-talent-assessment-topic-ordered" {
-  source        = "../gcp-pubsub/topic-with-service-account"
+  source        = "./modules/gcp-pubsub/topic-with-service-account"
   application   = var.application
   environment   = var.environment
   opco          = local.omni.opco
@@ -18,5 +18,5 @@ module "omni-talent-assessment-topic-ordered" {
   project_id    = lookup(local.omni.projects, var.environment)
   service_name  = "talent-assessment"
   topic_version = "v1"
-  ordered       = true
+  is_ordered       = true
 }
