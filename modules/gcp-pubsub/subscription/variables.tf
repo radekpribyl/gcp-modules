@@ -1,3 +1,4 @@
+#Common
 variable "project_id" {
   type        = string
   description = "The ID of the project where the composer env will be created"
@@ -21,11 +22,20 @@ variable "application" {
 variable "opco" {
   type        = string
   description = "The randstad abbreviation for the operating company, i.e. df"
+  validation {
+    condition = (!can(regex("_", var.opco)))
+    error_message = "Variable opco cannot contain _ character."
+  }
 }
 
+#Specific
 variable "service_name" {
   type        = string
   description = "Name of subscribing service"
+  validation {
+    condition = (!can(regex("_", var.service_name)))
+    error_message = "Service name cannot contain _ character."
+  }
 }
 
 variable "topic_name" {

@@ -21,7 +21,7 @@ module "topic" {
   service_name         = var.service_name
   topic_version        = var.topic_version
   is_dead_letter_topic = false
-  is_ordered           = var.ordered
+  is_ordered           = var.is_ordered
   persistence_regions  = var.persistence_regions
 }
 

@@ -1,5 +1,5 @@
 locals {
-  subscription_name = "${var.service_name}-${var.topic_name}"
+  subscription_name = "${var.service_name}_${var.topic_name}"
 }
 
 resource "google_pubsub_subscription" "subscription" {

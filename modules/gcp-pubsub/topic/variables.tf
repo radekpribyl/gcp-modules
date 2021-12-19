@@ -1,15 +1,7 @@
+#Common
 variable "project_id" {
   type        = string
   description = "The ID of the project where the composer env will be created"
-}
-
-variable "service_name" {
-  type        = string
-  description = "Name of the topic to be created"
-  validation {
-    condition = (!can(regex("_", var.service_name)))
-    error_message = "Variable service_name cannot contain _ character."
-  }
 }
 
 variable "environment" {
@@ -36,14 +28,20 @@ variable "opco" {
   }
 }
 
+#Specific
+variable "service_name" {
+  type        = string
+  description = "Name of the topic to be created"
+  validation {
+    condition = (!can(regex("_", var.service_name)))
+    error_message = "Service name cannot contain _ character."
+  }
+}
+
 variable "topic_version" {
   type        = string
   description = "The major version of messages in the topic"
   default     = "v1"
-  validation {
-    condition = (!can(regex("_", var.topic_version)))
-    error_message = "Variable topic_version cannot contain _ character."
-  }
 }
 
 variable "is_ordered" {
@@ -56,7 +54,6 @@ variable "persistence_regions" {
   type        = list(string)
   description = "A list of IDs of GCP regions where messages that are published to the topic may be persisted in storage"
   default     = ["europe-west3"]
-
 }
 
 variable "is_dead_letter_topic" {
@@ -76,5 +73,3 @@ variable "dlt_message_retention" {
   description = "Message retention in secs for DLT topic"
   default = "2592000s"
 }
-
-

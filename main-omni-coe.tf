@@ -18,5 +18,5 @@ module "omni-talent-assessment-topic-ordered" {
   project_id    = lookup(local.omni.projects, var.environment)
   service_name  = "talent-assessment"
   topic_version = "v1"
-  ordered       = true
+  is_ordered       = true
 }

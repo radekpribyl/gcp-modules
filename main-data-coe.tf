@@ -11,14 +11,15 @@ module "omni-talent-profile-subscription-sub1" {
 }
 
 module "omni-talent-profile-subscription-sub2-dlt" {
-  source       = "./modules/gcp-pubsub/subscription-with-service-account-and-dlt"
-  application  = var.application
-  environment  = var.environment
-  opco         = local.data.opco
-  owner        = local.data.owner
-  project_id   = lookup(local.data.projects, var.environment)
-  service_name = "sub2"
-  ordered      = true
-  topic_id     = module.omni-talent-assessment-topic-ordered.topic_id
-  topic_name   = module.omni-talent-assessment-topic-ordered.topic_name
+  source                 = "./modules/gcp-pubsub/subscription-with-service-account"
+  application            = var.application
+  environment            = var.environment
+  opco                   = local.data.opco
+  owner                  = local.data.owner
+  project_id             = lookup(local.data.projects, var.environment)
+  service_name           = "sub2"
+  is_ordered             = true
+  is_dead_letter_enabled = true
+  topic_id               = module.omni-talent-assessment-topic-ordered.topic_id
+  topic_name             = module.omni-talent-assessment-topic-ordered.topic_name
 }
